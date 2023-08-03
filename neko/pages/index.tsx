@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 /**
  * サバイバルナイフTypeScript 作って学ぶ「Next.jsで猫画像ジェネレーターを作ろう」
@@ -13,9 +13,23 @@ import { useState } from "react";
 // };
 
 const IndexPage: NextPage = () => {
+  // 1. useStateで状態を定義する。loadingはAPIを呼び出し中かどうかを管理する変数。
+  const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(true);
+
+  // 2. マウント時に画像を読み込む。useEffectは2つの引数を指定
+  useEffect(() => {
+    fetchCatsImage().then((newImage) => {
+      // console.log(catsImage.alt); id, url, width, heightだけあるので、altは存在しない。catsImagesがany型だと、誤ったコードを書いてもエラーにならない。
+      setImageUrl(newImage.url);
+      setLoading(false);
+    });
+  }, []); // 第2引数が空 ＝ コンポーネントがマウントされたときのみ実行するという意味
+
   return (
     <>
       <div>ねこ</div>
+      <div>{loading || <img src={imageUrl} />}</div>
       {/* <button onClick={onClickCountButton}>{count}</button> */}
     </>
   );
@@ -43,13 +57,10 @@ const fetchCatsImage = async (): Promise<Image> => {
   if(!isImage(catsImage)) {
     throw new Error("猫の画像が取得できませんでした。");
   }
-  return catsImage;
-  // console.log(catsImages);
-  // return catsImages[0];
+  //return catsImage;
+  console.log(catsImages);
+  return catsImages[0];
 }
-fetchCatsImage().then((catsImage) => {
-  // console.log(catsImage.alt); id, url, width, heightだけあるので、altは存在しない。catsImagesがany型だと、誤ったコードを書いてもエラーにならない。
-});
 
 // 型ガード関数
 const isImage = (value: unknown): value is Image => { // 型が不明な値を完全に型付けするunknown型
