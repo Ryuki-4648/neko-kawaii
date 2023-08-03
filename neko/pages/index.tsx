@@ -26,10 +26,19 @@ const IndexPage: NextPage = () => {
     });
   }, []); // 第2引数が空 ＝ コンポーネントがマウントされたときのみ実行するという意味
 
+  // ボタンクリックで他の写真を表示
+  const handleClick = async () => {
+    setLoading(true);
+    const newImage = await fetchCatsImage();
+    setImageUrl(newImage.url);
+    setLoading(false);
+  };
+
   return (
     <>
       <div>ねこ</div>
       <div>{loading || <img src={imageUrl} />}</div>
+      <button onClick={handleClick}>他の猫へ</button>
       {/* <button onClick={onClickCountButton}>{count}</button> */}
     </>
   );
