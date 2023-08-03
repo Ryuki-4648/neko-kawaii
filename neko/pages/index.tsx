@@ -32,11 +32,33 @@ type Image = {
 const fetchCatsImage = async (): Promise<Image> => {
   const response = await fetch("https://api.thecatapi.com/v1/images/search"); // Responseオブジェクトを返す
   const catsImages = await response.json(); // Responseオブジェクトのjson()メソッドを実行 -> レスポンスのボディーをJSONとしてパースし、jsのオブジェクトとして取得
-  console.log(catsImages);
-  return catsImages[0];
+
+  // 配列として表現されているか
+  if(!Array.isArray(catsImages)) {
+    throw new Error("猫の画像が取得できませんでした。");
+  }
+
+  // Imageの構造をなしているか
+  const catsImage: unknown = catsImages[0];
+  if(!isImage(catsImage)) {
+    throw new Error("猫の画像が取得できませんでした。");
+  }
+  return catsImage;
+  // console.log(catsImages);
+  // return catsImages[0];
 }
 fetchCatsImage().then((catsImage) => {
   // console.log(catsImage.alt); id, url, width, heightだけあるので、altは存在しない。catsImagesがany型だと、誤ったコードを書いてもエラーにならない。
 });
+
+// 型ガード関数
+const isImage = (value: unknown): value is Image => { // 型が不明な値を完全に型付けするunknown型
+  // 値がオブジェクトなのか
+  if(!value || typeof value !== "object") {
+    return false;
+  }
+  // urlプロパティが存在するかつそれが文字列かどうか
+  return "url" in value && typeof value.url === "string";
+}
 
 // fetchCatsImage();
