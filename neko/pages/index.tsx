@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetServerSideProps, NextPage } from "next";
 import { useEffect, useState } from "react";
 
 /**
@@ -12,10 +12,10 @@ import { useEffect, useState } from "react";
 //   setCount(count + 1);
 // };
 
-const IndexPage: NextPage = () => {
+const IndexPage: NextPage = ({initialImageUrl}) => {
   // 1. useStateで状態を定義する。loadingはAPIを呼び出し中かどうかを管理する変数。
-  const [imageUrl, setImageUrl] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [imageUrl, setImageUrl] = useState(initialImageUrl);
+  const [loading, setLoading] = useState(false);
 
   // 2. マウント時に画像を読み込む。useEffectは2つの引数を指定
   useEffect(() => {
@@ -49,8 +49,22 @@ const IndexPage: NextPage = () => {
 export default IndexPage;
 // Next.jsにページコンポーネントと認識させるためexport default
 
+
+// サーバーサイトで実行する処理
+export const getServerSideProps: GetServerSideProps<Props> = async () => {
+  const image = await fetchCatsImage();
+  return {
+    props: {
+      initialImageUrl: image.url,
+    },
+  };
+};
+
 type Image = {
   url: string;
+}
+type Prps = {
+  initialImageUrl: string;
 }
 const fetchCatsImage = async (): Promise<Image> => {
   const response = await fetch("https://api.thecatapi.com/v1/images/search"); // Responseオブジェクトを返す
