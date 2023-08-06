@@ -1,5 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { useEffect, useState } from "react";
+import styles from "./index.module.css"
 
 /**
  * サバイバルナイフTypeScript 作って学ぶ「Next.jsで猫画像ジェネレーターを作ろう」
@@ -7,24 +8,29 @@ import { useEffect, useState } from "react";
  * ・The Cat APIにリクエストし、猫の画像を取得する関数を実装
 */
 
-// const [count, setCount] = useState(100);
-// const onClickCountButton = () => {
-//   setCount(count + 1);
-// };
+type Props = {
+  initialImageUrl: string;
+}
 
-const IndexPage: NextPage = ({initialImageUrl}) => {
+const IndexPage: NextPage<Props> = ({initialImageUrl}) => {
+  const [count, setCount] = useState(100);
+  const onClickCountButton = () => {
+    setCount(count + 1);
+  };
+
   // 1. useStateで状態を定義する。loadingはAPIを呼び出し中かどうかを管理する変数。
   const [imageUrl, setImageUrl] = useState(initialImageUrl);
   const [loading, setLoading] = useState(false);
 
+  // ↓ 初期画像はサーバーサイドで取得するようにしたので、クライアントサイドで初期画像を取得していた以下の記述は不要となる
   // 2. マウント時に画像を読み込む。useEffectは2つの引数を指定
-  useEffect(() => {
-    fetchCatsImage().then((newImage) => {
-      // console.log(catsImage.alt); id, url, width, heightだけあるので、altは存在しない。catsImagesがany型だと、誤ったコードを書いてもエラーにならない。
-      setImageUrl(newImage.url);
-      setLoading(false);
-    });
-  }, []); // 第2引数が空 ＝ コンポーネントがマウントされたときのみ実行するという意味
+  // useEffect(() => {
+  //   fetchCatsImage().then((newImage) => {
+  //     // console.log(catsImage.alt); id, url, width, heightだけあるので、altは存在しない。catsImagesがany型だと、誤ったコードを書いてもエラーにならない。
+  //     setImageUrl(newImage.url);
+  //     setLoading(false);
+  //   });
+  // }, []); // 第2引数が空 ＝ コンポーネントがマウントされたときのみ実行するという意味
 
   // ボタンクリックで他の写真を表示
   const handleClick = async () => {
@@ -36,10 +42,12 @@ const IndexPage: NextPage = ({initialImageUrl}) => {
 
   return (
     <>
+    <section className={styles.section}>
       <div>ねこ</div>
-      <div>{loading || <img src={imageUrl} />}</div>
-      <button onClick={handleClick}>他の猫へ</button>
-      {/* <button onClick={onClickCountButton}>{count}</button> */}
+      <div>{loading || <img src={imageUrl} className={styles.img} />}</div>
+      <button onClick={handleClick} className={styles.nextbutton}>他の猫へ</button>
+      <button onClick={onClickCountButton} className={styles.goodbutton}>{count}</button>
+    </section>
     </>
   );
 };
@@ -50,12 +58,13 @@ export default IndexPage;
 // Next.jsにページコンポーネントと認識させるためexport default
 
 
-// サーバーサイトで実行する処理
+// データフェッチAPIのgetServerSidePropsを使い、サーバーサイドで実行する処理。
+// Next.jsに認識させるためにexportしておく必要がある。
 export const getServerSideProps: GetServerSideProps<Props> = async () => {
   const image = await fetchCatsImage();
   return {
     props: {
-      initialImageUrl: image.url,
+      initialImageUrl: image.url, // IndexPageコンポーネントが引数として受け取るpropを戻り値に含める
     },
   };
 };
@@ -63,9 +72,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async () => {
 type Image = {
   url: string;
 }
-type Prps = {
-  initialImageUrl: string;
-}
+
 const fetchCatsImage = async (): Promise<Image> => {
   const response = await fetch("https://api.thecatapi.com/v1/images/search"); // Responseオブジェクトを返す
   const catsImages = await response.json(); // Responseオブジェクトのjson()メソッドを実行 -> レスポンスのボディーをJSONとしてパースし、jsのオブジェクトとして取得
