@@ -1,0 +1,30 @@
+.img {
+  width: 300px;
+  height: 300px;
+  object-fit: cover;
+}
+
+
+.section {
+
+}
+
+.nextbutton {
+  width: 100px;
+  height: 100px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.goodbutton {
+  background-color: #e07094;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  width: 80px;
+  padding: 2px 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
