@@ -42,12 +42,20 @@ const IndexPage: NextPage<Props> = ({initialImageUrl}) => {
 
   return (
     <>
-    <section className={styles.section}>
-      <div>ねこ</div>
-      <div>{loading || <img src={imageUrl} className={styles.img} />}</div>
-      <button onClick={handleClick} className={styles.nextbutton}>他の猫へ</button>
-      <button onClick={onClickCountButton} className={styles.goodbutton}>{count}</button>
-    </section>
+      <section className={styles.section}>
+        <div className={styles.wrap}>
+          <h1 className={styles.index}>CATS SPACE</h1>
+          <div className={styles.imageWrap}>
+            {loading || <img src={imageUrl} className={styles.img} />}
+            <div className={styles.moon}></div>
+          </div>
+          <p className={styles.text}>KAWAIINE</p>
+          <div onClick={onClickCountButton} className={styles.goodbutton}>{count}</div>
+        </div>
+        <div className={styles.bottom}>
+          <p onClick={handleClick} className={styles.nextbutton}>他の猫へ</p>
+        </div>
+      </section>
     </>
   );
 };
