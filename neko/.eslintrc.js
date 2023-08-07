@@ -8,4 +8,9 @@ module.exports = {
     ecmaVersion: "latest", // どのバージョンのECMAScriptの構文を使うか
     sourceType: "module", // モジュールモードでJavaScript/TypeScriptを書くほうが一般的
   },
+  rules: {
+    "no-console": "error", // console.logを書いてはならない
+    camelcase: ["error", { properties: "never" }], // キャメルケースを強制しない設定
+    semi: ["error", "always"],
+  },
 };
