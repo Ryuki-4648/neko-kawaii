@@ -38,6 +38,7 @@ const IndexPage: NextPage<Props> = ({initialImageUrl}) => {
     const newImage = await fetchCatsImage();
     setImageUrl(newImage.url);
     setLoading(false);
+    setCount(100);
   };
 
   return (
@@ -46,7 +47,7 @@ const IndexPage: NextPage<Props> = ({initialImageUrl}) => {
         <div className={styles.wrap}>
           <h1 className={styles.index}>CATS SPACE</h1>
           <div className={styles.imageWrap}>
-            {loading || <img src={imageUrl} className={styles.img} />}
+            {loading ? <p className={styles.loading}>loading cats..</p> : <img src={imageUrl} className={styles.img} /> }
             <div className={styles.moon}></div>
           </div>
           <p className={styles.text}>KAWAIINE</p>
