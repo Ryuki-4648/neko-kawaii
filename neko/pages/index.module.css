@@ -7,6 +7,7 @@
   font-size: 50px;
   margin: 0 auto 30px;
   text-align: center;
+  letter-spacing: 0.05em;
 }
 
 .imageWrap {
@@ -71,12 +72,19 @@
   border-radius: 4px;
   cursor: pointer;
   margin: 0 auto;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+}
+.goodbutton:hover {
+  background-color: #ebff3c;
+  color: #36485c;
 }
 
 .text {
   color: #ebff3c;
   text-align: center;
-  margin: 40px auto 30px;
+  margin: 40px auto 20px;
+  font-size: 28px;
 }
 
 .bottom {
@@ -92,4 +100,6 @@
   cursor: pointer;
   color: #fff;
   text-align: center;
+  letter-spacing: 0.05em;
+  font-size: 21px;
 }

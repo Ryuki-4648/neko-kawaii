@@ -1,6 +1,7 @@
 import { GetServerSideProps, NextPage } from "next";
 import { useEffect, useState } from "react";
 import styles from "./index.module.css"
+import Head from "next/head";
 
 /**
  * サバイバルナイフTypeScript 作って学ぶ「Next.jsで猫画像ジェネレーターを作ろう」
@@ -12,6 +13,8 @@ type Props = {
   initialImageUrl: string;
 }
 
+// Next.jsでは、1ファイルにつき1ページコンポーネントを作成
+// NextPage: ページコンポーネントを表す型
 const IndexPage: NextPage<Props> = ({initialImageUrl}) => {
   const [count, setCount] = useState(100);
   const onClickCountButton = () => {
@@ -44,6 +47,13 @@ const IndexPage: NextPage<Props> = ({initialImageUrl}) => {
   return (
     <>
       <section className={styles.section}>
+        <Head>
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet" />
+          <title>CATS SPACE by The Cat Api | 「かわいい！」とお思ったら「ねこかわいいねボタン」をクリックしよう。</title>
+          <meta name="description" content="CATS SPACE | ランダムで猫が表示されます。「かわいい！」と思ったら、ぜひ「ねこかわいいねボタン」をクリックしていいね数を増やしてください。" />
+        </Head>
         <div className={styles.wrap}>
           <h1 className={styles.index}>CATS SPACE</h1>
           <div className={styles.imageWrap}>
@@ -54,18 +64,15 @@ const IndexPage: NextPage<Props> = ({initialImageUrl}) => {
           <div onClick={onClickCountButton} className={styles.goodbutton}>{count}</div>
         </div>
         <div className={styles.bottom}>
-          <p onClick={handleClick} className={styles.nextbutton}>他の猫へ</p>
+          <p onClick={handleClick} className={styles.nextbutton}>Next cat</p>
         </div>
       </section>
     </>
   );
 };
-// Next.jsでは、1ファイルにつき1ページコンポーネントを作成
-// NextPage: ページコンポーネントを表す型
 
 export default IndexPage;
 // Next.jsにページコンポーネントと認識させるためexport default
-
 
 // データフェッチAPIのgetServerSidePropsを使い、サーバーサイドで実行する処理。
 // Next.jsに認識させるためにexportしておく必要がある。
