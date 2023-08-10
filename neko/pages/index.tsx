@@ -45,29 +45,27 @@ const IndexPage: NextPage<Props> = ({initialImageUrl}) => {
   };
 
   return (
-    <>
-      <section className={styles.section}>
-        <Head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet" />
-          <title>CATS SPACE by The Cat Api | 「かわいい！」とお思ったら「ねこかわいいねボタン」をクリックしよう。</title>
-          <meta name="description" content="CATS SPACE | ランダムで猫が表示されます。「かわいい！」と思ったら、ぜひ「ねこかわいいねボタン」をクリックしていいね数を増やしてください。" />
-        </Head>
-        <div className={styles.wrap}>
-          <h1 className={styles.index}>CATS SPACE</h1>
-          <div className={styles.imageWrap}>
-            {loading ? <p className={styles.loading}>loading cats..</p> : <img src={imageUrl} className={styles.img} /> }
-            <div className={styles.moon}></div>
-          </div>
-          <p className={styles.text}>KAWAIINE</p>
-          <div onClick={onClickCountButton} className={styles.goodbutton}>{count}</div>
+    <section className={styles.section}>
+      <Head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" />
+        <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet" />
+        <title>CATS SPACE by The Cat Api | 「かわいい！」とお思ったら「ねこかわいいねボタン」をクリックしよう。</title>
+        <meta name="description" content="CATS SPACE | ランダムで猫が表示されます。「かわいい！」と思ったら、ぜひ「ねこかわいいねボタン」をクリックしていいね数を増やしてください。" />
+      </Head>
+      <div className={styles.wrap}>
+        <h1 className={styles.index}>CATS SPACE</h1>
+        <div className={styles.imageWrap}>
+          {loading ? <p className={styles.loading}>loading cats..</p> : <img src={imageUrl} className={styles.img} /> }
+          <div className={styles.moon}></div>
         </div>
-        <div className={styles.bottom}>
-          <p onClick={handleClick} className={styles.nextbutton}>Next cat</p>
-        </div>
-      </section>
-    </>
+        <p className={styles.text}>KAWAIINE</p>
+        <div onClick={onClickCountButton} className={styles.goodbutton}>{count}</div>
+      </div>
+      <div className={styles.bottom} onClick={handleClick}>
+        <p className={styles.nextbutton}>Next cat</p>
+      </div>
+    </section>
   );
 };
 
