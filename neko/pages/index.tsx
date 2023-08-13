@@ -1,5 +1,5 @@
 import { GetServerSideProps, NextPage } from "next";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import styles from "./index.module.css"
 import Head from "next/head";
 
@@ -50,8 +50,8 @@ const IndexPage: NextPage<Props> = ({initialImageUrl}) => {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
         <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet" />
-        <title>CATS SPACE by The Cat Api | 「かわいい！」とお思ったら「ねこかわいいねボタン」をクリックしよう。</title>
-        <meta name="description" content="CATS SPACE | ランダムで猫が表示されます。「かわいい！」と思ったら、ぜひ「ねこかわいいねボタン」をクリックしていいね数を増やしてください。" />
+        <title>CATS SPACE by The Cat Api | 「かわいい！」と思ったら「かわいいねボタン」をクリックしよう。</title>
+        <meta name="description" content="CATS SPACE | ランダムで猫が表示されます。「かわいい！」と思ったら、ぜひ「かわいいねボタン」をクリックしていいね数を増やしてください。" />
       </Head>
       <div className={styles.wrap}>
         <h1 className={styles.index}>CATS SPACE</h1>

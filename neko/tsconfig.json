@@ -12,7 +12,7 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
+    "module": "esnext", // どのモジュールパターンで出力するか.下位互換性のあるコードへの変換をBabelで行うならesnext
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,

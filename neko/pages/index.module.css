@@ -1,3 +1,12 @@
+/*
+  CSS Modules
+  クラス名のスコープを限定してスタイルが適用されるため、
+  他の場所で同じクラス名を使用しても競合しない
+
+  一方、一部のセレクタ（例えば、h3やh1などのHTML要素）は「不純な」セレクタとされる
+  Selector "body" is not pure (pure selectors must contain at least one local class or id)
+*/
+
 .index {
   color: #ebff3c;
   font-size: 50px;
