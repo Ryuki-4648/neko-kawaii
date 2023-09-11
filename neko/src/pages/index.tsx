@@ -1,6 +1,6 @@
 import { GetServerSideProps, NextPage } from "next";
 import { useState } from "react";
-import styles from "./index.module.css"
+import styles from "../styles/index.module.css"
 import Head from "next/head";
 
 /**
